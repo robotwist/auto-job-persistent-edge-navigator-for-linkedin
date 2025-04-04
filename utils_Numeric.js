@@ -2,17 +2,59 @@ const fs = require('fs');
 const natural = require('natural');
 const { TfIdf, WordTokenizer, PorterStemmer } = natural;
 const readline = require('readline');
+const path = require('path');
 
 // Load or initialize answers database
 const answersFilePath = './numeric_response.json';
 let answersDatabase = {};
 
-if (fs.existsSync(answersFilePath)) {
-  const data = fs.readFileSync(answersFilePath, 'utf8');
-  answersDatabase = JSON.parse(data);
+// Load job profiles for dynamic answers
+const jobProfilesPath = './job_profiles.json';
+let jobProfiles = {};
+let currentProfile = 'junior_developer'; // Default profile
+
+// Load job profiles if available
+if (fs.existsSync(jobProfilesPath)) {
+  try {
+    const data = fs.readFileSync(jobProfilesPath, 'utf8');
+    jobProfiles = JSON.parse(data);
+    console.log('Job profiles loaded successfully');
+  } catch (error) {
+    console.error('Error loading job profiles:', error);
+  }
 } else {
-  console.log('answers.json file not found. Please ensure it exists and is in the correct location.');
-  process.exit(1);
+  console.log('Job profiles file not found. Using default values.');
+}
+
+if (fs.existsSync(answersFilePath)) {
+  try {
+    const data = fs.readFileSync(answersFilePath, 'utf8');
+    answersDatabase = JSON.parse(data);
+  } catch (error) {
+    console.error('Error parsing answers file:', error);
+    // Create a backup if the file is corrupted
+    if (fs.existsSync(answersFilePath)) {
+      const backupPath = `${answersFilePath}.backup.${Date.now()}`;
+      fs.copyFileSync(answersFilePath, backupPath);
+      console.log(`Created backup of corrupted file at ${backupPath}`);
+    }
+    answersDatabase = {};
+  }
+} else {
+  console.log('answers.json file not found. Creating a new one.');
+  fs.writeFileSync(answersFilePath, JSON.stringify(answersDatabase, null, 2));
+}
+
+// Set the active job profile
+function setJobProfile(profileKey) {
+  if (jobProfiles[profileKey]) {
+    currentProfile = profileKey;
+    console.log(`Switched to job profile: ${jobProfiles[profileKey].title}`);
+    return true;
+  } else {
+    console.error(`Profile "${profileKey}" not found`);
+    return false;
+  }
 }
 
 // Array of keywords representing technologies or topics
@@ -42,7 +84,7 @@ const keywords = [
 
 // Helper function to normalize and tokenize text, ignoring common introductory phrases
 function normalizeAndTokenize(text) {
-  const regex = /^(how many years of work experience do you have with|how many years of do you have with|how many years of do you have)/i;
+  const regex = /^(how many years of work experience do you have with|how many years of do you have with|how many years of do you have|how many years of experience do you have with|how many years of experience do you have)/i;
   const processedText = text.replace(regex, '');
   
   const tokenizer = new WordTokenizer();
@@ -52,11 +94,55 @@ function normalizeAndTokenize(text) {
 
 function saveAnswer(question, answer) {
   answersDatabase[question] = answer;
-  fs.writeFileSync(answersFilePath, JSON.stringify(answersDatabase, null, 2), 'utf8');
+  try {
+    fs.writeFileSync(answersFilePath, JSON.stringify(answersDatabase, null, 2), 'utf8');
+  } catch (error) {
+    console.error('Error saving answer to file:', error);
+  }
 }
 
 async function handleNewQuestion(question) {
-  console.log(`No sufficiently similar question found for: "${question}". Please provide an answer.`);
+  console.log(`No sufficiently similar question found for: "${question}". Using profile-based answer or prompt.`);
+  
+  // Check if this is an experience question
+  const experienceRegex = /(how many years|years of|experience with|experience do you have)/i;
+  if (experienceRegex.test(question)) {
+    // Extract skill or technology
+    const cleanedQuestion = normalizeAndTokenize(question.trim());
+    
+    // Try to find the skill in the current profile
+    if (jobProfiles[currentProfile] && jobProfiles[currentProfile].yearsOfExperience) {
+      for (const skill in jobProfiles[currentProfile].yearsOfExperience) {
+        if (cleanedQuestion.includes(normalizeAndTokenize(skill).toLowerCase())) {
+          const answer = jobProfiles[currentProfile].yearsOfExperience[skill];
+          console.log(`Using profile-based answer for "${question}": ${answer}`);
+          saveAnswer(question, answer);
+          return answer;
+        }
+      }
+      
+      // If no specific skill found, use default
+      if (jobProfiles[currentProfile].yearsOfExperience.default) {
+        const answer = jobProfiles[currentProfile].yearsOfExperience.default;
+        console.log(`Using default experience for "${question}": ${answer}`);
+        saveAnswer(question, answer);
+        return answer;
+      }
+    }
+  }
+  
+  // Check if this is a salary question
+  const salaryRegex = /(salary|compensation|expected salary|current salary|ctc)/i;
+  if (salaryRegex.test(question)) {
+    if (jobProfiles[currentProfile] && jobProfiles[currentProfile].expectedSalary) {
+      const answer = jobProfiles[currentProfile].expectedSalary;
+      console.log(`Using profile-based salary for "${question}": ${answer}`);
+      saveAnswer(question, answer);
+      return answer;
+    }
+  }
+  
+  // Fallback to user input
   const answer = await new Promise((resolve) => {
     const rl = readline.createInterface({
       input: process.stdin,
@@ -146,5 +232,8 @@ module.exports = {
   handleNewQuestion,
   calculateSimilarity,
   getMostSimilarQuestion,
-  normalizeAndTokenize
+  normalizeAndTokenize,
+  setJobProfile,
+  jobProfiles,
+  currentProfile
 };

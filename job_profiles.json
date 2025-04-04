@@ -1,0 +1,65 @@
+{
+  "junior_developer": {
+    "title": "Junior Software Developer",
+    "searchQueries": ["Junior Software Engineer", "Junior Developer", "Entry Level Developer", "Associate Developer"],
+    "yearsOfExperience": {
+      "default": "1",
+      "JavaScript": "2",
+      "React.js": "1",
+      "Node.js": "1",
+      "Python": "1"
+    },
+    "expectedSalary": "100000",
+    "skills": [
+      "JavaScript", "HTML", "CSS", "React", "Node.js", "Git", "Python"
+    ],
+    "binaryAnswers": {
+      "requireSponsorship": "No",
+      "willingToRelocate": "Yes",
+      "willingToWorkRemote": "Yes",
+      "willingToWorkHybrid": "Yes"
+    }
+  },
+  "qa_engineer": {
+    "title": "QA Engineer",
+    "searchQueries": ["QA Engineer", "Quality Assurance", "Software Tester", "Test Engineer"],
+    "yearsOfExperience": {
+      "default": "2",
+      "Software Testing": "3",
+      "Test Automation": "2",
+      "Selenium": "2",
+      "JIRA": "2"
+    },
+    "expectedSalary": "95000",
+    "skills": [
+      "Software Testing", "Test Automation", "Selenium", "JIRA", "Test Planning", "Bug Tracking", "JavaScript"
+    ],
+    "binaryAnswers": {
+      "requireSponsorship": "No",
+      "willingToRelocate": "Yes",
+      "willingToWorkRemote": "Yes",
+      "willingToWorkHybrid": "Yes"
+    }
+  },
+  "tech_support": {
+    "title": "Technical Support Specialist",
+    "searchQueries": ["Technical Support", "IT Support", "Help Desk", "Customer Support"],
+    "yearsOfExperience": {
+      "default": "3",
+      "Customer Support": "3",
+      "Troubleshooting": "3",
+      "Windows": "3",
+      "Linux": "2"
+    },
+    "expectedSalary": "85000",
+    "skills": [
+      "Technical Support", "Troubleshooting", "Windows", "Linux", "Customer Service", "Network Basics", "Hardware Support"
+    ],
+    "binaryAnswers": {
+      "requireSponsorship": "No",
+      "willingToRelocate": "Yes",
+      "willingToWorkRemote": "Yes",
+      "willingToWorkHybrid": "Yes"
+    }
+  }
+} 

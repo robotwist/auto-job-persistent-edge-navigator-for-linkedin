@@ -3,8 +3,33 @@ const fs = require('fs');
 const { answersDatabase, saveAnswer, handleNewQuestion, calculateSimilarity, getMostSimilarQuestion, normalizeAndTokenize } = require('./utils_Numeric.js');
 const { answerDropDown, handleNewAnswerDropDown } = require('./utils_DropDown');
 const { answerBinaryQuestions, handleNewQuestionBinary } = require('./utils_Binary.js');
+const dotenv = require('dotenv');
+
+// Load environment variables
+dotenv.config();
 
 const STATE_PATH = 'state.json';
+const CONFIG_FILE = 'config.json';
+
+// Load configuration
+let config = {
+  jobSearchQueries: ['Junior Software Engineer', 'QA Engineer', 'Technical Support'],
+  currentJobType: 'Junior Software Engineer',
+  maxPages: 5,
+  jobsPerRun: 20
+};
+
+if (fs.existsSync(CONFIG_FILE)) {
+  try {
+    const configData = fs.readFileSync(CONFIG_FILE, 'utf8');
+    config = { ...config, ...JSON.parse(configData) };
+  } catch (error) {
+    console.error('Error loading config file:', error);
+  }
+} else {
+  fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2));
+  console.log('Created new config file with default settings');
+}
 
 async function saveLoginState(context) {
   await context.storageState({ path: STATE_PATH });
@@ -223,8 +248,18 @@ async function navigateWithRetry(page, url, retries = 5) {
     if (!fs.existsSync(STATE_PATH)) {
       await page.goto('https://www.linkedin.com/login');
       
-      await page.fill('input[name="session_key"]', 'robwistrand@gmail.com');
-      await page.fill('input[name="session_password"]', 'Vine087weed632!');
+      // Use environment variables for credentials
+      const email = process.env.LINKEDIN_EMAIL || '';
+      const password = process.env.LINKEDIN_PASSWORD || '';
+      
+      if (!email || !password) {
+        console.error('LinkedIn credentials not found in environment variables. Please set LINKEDIN_EMAIL and LINKEDIN_PASSWORD.');
+        await browser.close();
+        return;
+      }
+      
+      await page.fill('input[name="session_key"]', email);
+      await page.fill('input[name="session_password"]', password);
       await page.click('button[type="submit"]');
       
       await page.waitForSelector('a.global-nav__primary-link--active', { timeout: 0 });
