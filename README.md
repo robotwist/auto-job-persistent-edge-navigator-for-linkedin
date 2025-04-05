@@ -1,4 +1,4 @@
-# Job Application Bot
+# Job Application Accelerator
 
 An automated job application tool that helps you apply to jobs across multiple job sites including LinkedIn, Indeed, and ZipRecruiter. The tool is designed to streamline your job search process by automatically filling in application forms and answering common screening questions.
 
