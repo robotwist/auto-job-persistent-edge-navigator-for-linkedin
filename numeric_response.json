@@ -117,7 +117,7 @@
   "How many years of work experience do you have with GraphQL?": "1",
   "How many years of work experience do you have with Apache Airflow?": "1",
   "How many years of work experience do you have with Linux?": "1",
-  "Website": "na",
+  "Website": "n/a",
   "How many years of work experience do you have with Windows?": "1",
   "How many years of work experience do you have with SQL Server Integration Services (SSIS)?": "1",
   "How many years of work experience do you have with ETL Tools?": "1",
@@ -153,5 +153,9 @@
   "Street address line 1": "222 Santa Cruz Ave",
   "ZIP / Postal Code": "95003",
   "State": "California",
-  "City*": "Aptos"
+  "City*": "Aptos",
+  "How many years of work experience do you have with Selenium?": "1",
+  "How many years of work experience do you have with Ruby on Rails?": "1",
+  "State or Province": "CA",
+  "Country": "USA"
 }

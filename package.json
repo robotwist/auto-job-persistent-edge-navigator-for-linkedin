@@ -1,16 +1,11 @@
 {
-  "name": "job-application-bot",
+  "name": "linkedin-job-application-automation",
   "version": "1.0.0",
-  "description": "Automated job application tool for various job sites",
+  "description": "Automated job application system for LinkedIn using Playwright",
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
-    "apply:linkedin": "node main.js --platform=linkedin",
-    "apply:indeed": "node main.js --platform=indeed",
-    "apply:ziprecruiter": "node main.js --platform=ziprecruiter",
-    "profile:dev": "node main.js --profile=junior_developer",
-    "profile:qa": "node main.js --profile=qa_engineer",
-    "profile:support": "node main.js --profile=tech_support"
+    "test": "jest"
   },
   "keywords": [
     "job",
@@ -23,10 +18,12 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "dotenv": "^16.0.3",
-    "natural": "^6.2.0",
-    "playwright": "^1.30.0",
-    "yargs": "^17.7.1"
+    "playwright": "^1.41.2",
+    "winston": "^3.11.0",
+    "dotenv": "^16.4.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   },
   "engines": {
     "node": ">=14.0.0"

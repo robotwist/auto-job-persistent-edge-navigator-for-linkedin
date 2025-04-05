@@ -1,65 +1,72 @@
-{
-  "junior_developer": {
-    "title": "Junior Software Developer",
-    "searchQueries": ["Junior Software Engineer", "Junior Developer", "Entry Level Developer", "Associate Developer"],
-    "yearsOfExperience": {
-      "default": "1",
-      "JavaScript": "2",
-      "React.js": "1",
-      "Node.js": "1",
-      "Python": "1"
-    },
-    "expectedSalary": "100000",
-    "skills": [
-      "JavaScript", "HTML", "CSS", "React", "Node.js", "Git", "Python"
+[
+  {
+    "title": "Junior Software Engineer",
+    "search_queries": [
+      "Junior Software Engineer",
+      "Entry Level Software Developer",
+      "Graduate Software Engineer"
     ],
-    "binaryAnswers": {
-      "requireSponsorship": "No",
-      "willingToRelocate": "Yes",
-      "willingToWorkRemote": "Yes",
-      "willingToWorkHybrid": "Yes"
+    "location": "Remote",
+    "description": "Looking for entry-level software engineering positions with opportunities to learn and grow.",
+    "experience": {
+      "default": 1,
+      "min": 0,
+      "max": 2
+    },
+    "skills": [
+      "JavaScript",
+      "Python",
+      "React",
+      "Node.js",
+      "Git"
+    ],
+    "education": {
+      "level": "Bachelor's",
+      "field": "Computer Science"
+    },
+    "preferences": {
+      "remote": true,
+      "employment_type": ["Full-time", "Contract"],
+      "industries": [
+        "Technology",
+        "Software",
+        "Web Development"
+      ]
     }
   },
-  "qa_engineer": {
-    "title": "QA Engineer",
-    "searchQueries": ["QA Engineer", "Quality Assurance", "Software Tester", "Test Engineer"],
-    "yearsOfExperience": {
-      "default": "2",
-      "Software Testing": "3",
-      "Test Automation": "2",
-      "Selenium": "2",
-      "JIRA": "2"
-    },
-    "expectedSalary": "95000",
-    "skills": [
-      "Software Testing", "Test Automation", "Selenium", "JIRA", "Test Planning", "Bug Tracking", "JavaScript"
+  {
+    "title": "Junior QA Engineer",
+    "search_queries": [
+      "Junior QA Engineer",
+      "Entry Level Quality Assurance",
+      "Software Tester"
     ],
-    "binaryAnswers": {
-      "requireSponsorship": "No",
-      "willingToRelocate": "Yes",
-      "willingToWorkRemote": "Yes",
-      "willingToWorkHybrid": "Yes"
-    }
-  },
-  "tech_support": {
-    "title": "Technical Support Specialist",
-    "searchQueries": ["Technical Support", "IT Support", "Help Desk", "Customer Support"],
-    "yearsOfExperience": {
-      "default": "3",
-      "Customer Support": "3",
-      "Troubleshooting": "3",
-      "Windows": "3",
-      "Linux": "2"
+    "location": "Remote",
+    "description": "Seeking entry-level QA positions to apply testing methodologies and ensure software quality.",
+    "experience": {
+      "default": 1,
+      "min": 0,
+      "max": 2
     },
-    "expectedSalary": "85000",
     "skills": [
-      "Technical Support", "Troubleshooting", "Windows", "Linux", "Customer Service", "Network Basics", "Hardware Support"
+      "Manual Testing",
+      "Automated Testing",
+      "Selenium",
+      "Test Planning",
+      "Bug Tracking"
     ],
-    "binaryAnswers": {
-      "requireSponsorship": "No",
-      "willingToRelocate": "Yes",
-      "willingToWorkRemote": "Yes",
-      "willingToWorkHybrid": "Yes"
+    "education": {
+      "level": "Bachelor's",
+      "field": "Computer Science"
+    },
+    "preferences": {
+      "remote": true,
+      "employment_type": ["Full-time"],
+      "industries": [
+        "Technology",
+        "Software Testing",
+        "Quality Assurance"
+      ]
     }
   }
-} 
+] 

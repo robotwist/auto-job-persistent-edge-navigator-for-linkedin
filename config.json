@@ -1,0 +1,15 @@
+{
+  "jobSearchQueries": [
+    "Junior Software Engineer",
+    "QA Engineer",
+    "Technical Support"
+  ],
+  "currentJobType": "junior_developer",
+  "maxPages": 5,
+  "jobsPerRun": 20,
+  "activePlatforms": [
+    "linkedin"
+  ],
+  "location": "",
+  "headless": false
+}
